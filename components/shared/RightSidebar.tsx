@@ -29,27 +29,27 @@ const RightSidebar = () => {
 
   const populatTag = [
     {
-      _id: 1,
+      _id: "1",
       name: "Javascript",
       totalQuestions: 5,
     },
     {
-      _id: 2,
+      _id: "2",
       name: "React",
       totalQuestions: 2,
     },
     {
-      _id: 3,
+      _id: "3",
       name: "Typescript",
       totalQuestions: 1,
     },
     {
-      _id: 4,
+      _id: "4",
       name: "Javascript",
       totalQuestions: 5,
     },
     {
-      _id: 5,
+      _id: "5",
       name: "Javascript",
       totalQuestions: 5,
     },

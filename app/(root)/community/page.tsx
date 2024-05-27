@@ -35,8 +35,8 @@ const Community = async () => {
       </div>
 
       <section className="mt-12 flex flex-wrap gap-4">
-        <UserCard />
-        {/* {result.users.length > 1 ? (
+        {/* <UserCard /> */}
+        {result.users.length > 1 ? (
           result.users.map((user) => <UserCard key={user._id} user={user} />)
         ) : (
           <div className="paragraph-regular text-dark200_light900 mx-auto max-w-4xl text-center">
@@ -45,7 +45,7 @@ const Community = async () => {
               Join to be the first!
             </Link>
           </div>
-        )} */}
+        )}
       </section>
     </>
   );

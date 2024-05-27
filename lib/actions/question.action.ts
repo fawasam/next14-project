@@ -7,9 +7,59 @@ import {
   CreateQuestionParams,
   GetQuestionByIdParams,
   GetQuestionsParams,
+  VoteParams,
 } from "./shared.type";
 import User from "@/database/user.model";
 import { revalidatePath } from "next/cache";
+import Answer from "@/database/answer.model";
+
+async function handleVote({
+  id,
+  userId,
+  hasdownVoted,
+  hasupVoted,
+  path,
+  voteType,
+  model,
+}: VoteParams & { voteType: "upvote" | "downvote"; model: any }) {
+  try {
+    connectToDatabase();
+
+    let updateQuery = {};
+    if (voteType === "upvote") {
+      if (hasupVoted) {
+        updateQuery = { $pull: { upvotes: userId } };
+      } else if (hasdownVoted) {
+        updateQuery = {
+          $push: { upvotes: userId },
+          $pull: { downvotes: userId },
+        };
+      } else {
+        updateQuery = { $addToSet: { upvotes: userId } };
+      }
+    } else if (voteType === "downvote") {
+      if (hasdownVoted) {
+        updateQuery = { $pull: { downvotes: userId } };
+      } else if (hasupVoted) {
+        updateQuery = {
+          $push: { downvotes: userId },
+          $pull: { upvotes: userId },
+        };
+      } else {
+        updateQuery = { $addToSet: { downvotes: userId } };
+      }
+    }
+
+    const item = await model.findByIdAndUpdate(id, updateQuery, { new: true });
+
+    if (!item) throw new Error(`${model.modelName} not found`);
+
+    revalidatePath(path);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
 
 export async function getQuestions(params?: GetQuestionsParams) {
   try {
@@ -85,4 +135,20 @@ export async function getQuestionById(params?: GetQuestionByIdParams) {
     console.log(error);
     throw error;
   }
+}
+
+export async function upVoteQuestion(params: VoteParams) {
+  return handleVote({ ...params, voteType: "upvote", model: Question });
+}
+
+export async function downVoteQuestion(params: VoteParams) {
+  return handleVote({ ...params, voteType: "downvote", model: Question });
+}
+
+export async function upVoteAnswer(params: VoteParams) {
+  return handleVote({ ...params, voteType: "upvote", model: Answer });
+}
+
+export async function downVoteAnswer(params: VoteParams) {
+  return handleVote({ ...params, voteType: "downvote", model: Answer });
 }

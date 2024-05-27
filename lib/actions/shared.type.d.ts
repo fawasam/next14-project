@@ -1,6 +1,13 @@
 import { IUser } from "@/database/user.model";
 import { Schema } from "mongoose";
 
+export interface VoteParams {
+  id: string;
+  userId: string;
+  hasdownVoted: boolean;
+  hasupVoted: boolean;
+  path: string;
+}
 export interface CreateAnswerParams {
   content: string;
   author: string; // User ID

@@ -1,11 +1,13 @@
 import Answer from "@/components/forms/Answer";
+import AllAnswers from "@/components/shared/AllAnswers";
 import Metric from "@/components/shared/Metric";
 import ParseCode from "@/components/shared/ParseCode";
 import RenderTag from "@/components/shared/RenderTag";
+import Votes from "@/components/shared/Votes";
 import { getQuestionById } from "@/lib/actions/question.action";
-// import { getUserById } from "@/lib/actions/user.action";
+import { getUserById } from "@/lib/actions/user.action";
 import { formatLargeNumber, getTimeStamp } from "@/lib/utils";
-// import { auth } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -19,12 +21,11 @@ type Props = {
 const page = async ({ params, searchParams }: Props) => {
   const result = await getQuestionById({ questionId: params.id });
 
-  // const { userId: clerkId } = auth();
-  // let user;
-  // if (clerkId) {
-  //   user = await getUserById({ userId: clerkId });
-  // }
-
+  const { userId: clerkId } = auth();
+  let user;
+  if (clerkId) {
+    user = await getUserById({ userId: clerkId });
+  }
   return (
     <>
       <div className="flex-start w-full flex-col">
@@ -44,7 +45,18 @@ const page = async ({ params, searchParams }: Props) => {
               {result.author.name}
             </p>
           </Link>
-          <div className="flex justify-end">VOTING</div>
+          <div className="flex justify-end">
+            <Votes
+              type="question"
+              itemId={JSON.stringify(result._id)}
+              userId={JSON.stringify(user._id)}
+              upvotes={result.upvotes.length}
+              hasupvoted={result.upvotes.includes(user._id)}
+              downvotes={result.downvotes.length}
+              hasdownvoted={result.downvotes.includes(user._id)}
+              hasSaved={user.saved.includes(result._id)}
+            />
+          </div>
         </div>
         <h2 className="h2-semibold text-dark200_light900 mt-3.5 w-full text-left">
           {result.title}
@@ -88,10 +100,15 @@ const page = async ({ params, searchParams }: Props) => {
           />
         ))}
       </div>
+      <AllAnswers
+        questionId={result._id}
+        userId={user._id}
+        totalAnswers={result.answers.length}
+      />
       <Answer
         question={result.content}
         questionId={JSON.stringify(result._id)}
-        // authorId={JSON.stringify(user._id)}
+        authorId={JSON.stringify(user._id)}
       />
     </>
   );

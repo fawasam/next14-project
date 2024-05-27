@@ -22,10 +22,10 @@ import { usePathname } from "next/navigation";
 interface Props {
   question: string;
   questionId: string;
-  authorId?: string;
+  authorId?: any;
 }
 
-const Answer = ({ question, questionId, authorId = "1231231" }: Props) => {
+const Answer = ({ question, questionId, authorId }: Props) => {
   const pathname = usePathname();
   const { mode } = useTheme();
   const editorRef = useRef<HTMLInputElement | null | any>(null);
@@ -40,6 +40,7 @@ const Answer = ({ question, questionId, authorId = "1231231" }: Props) => {
 
   const handleCreateAnswer = async (values: z.infer<typeof AnswerSchema>) => {
     setIsSubmitting(true);
+
     try {
       await CreateAnswer({
         content: values.answer,

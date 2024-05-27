@@ -20,8 +20,6 @@ export function getTimeStamp(createdAt: string): string {
 }
 
 export function formatLargeNumber(num: number): string {
-  console.log(num);
-
   if (num >= 1_000_000) {
     return `${(num / 1_000_000).toFixed(2)}M`;
   } else if (num >= 1_000) {

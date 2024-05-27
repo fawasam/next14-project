@@ -5,6 +5,10 @@ import { WebhookEvent } from "@clerk/nextjs/server";
 import { createUser, deleteUser, updateUser } from "@/lib/actions/user.action";
 import { NextResponse } from "next/server";
 
+export async function GET() {
+  return Response.json({ message: "The route is working" });
+}
+
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the endpoint
   const WEBHOOK_SECRET = process.env.NEXT_CLERK_WEBHOOK_SECRET;
@@ -54,18 +58,18 @@ export async function POST(req: Request) {
   // Do something with the payload
   // For this guide, you simply log the payload to the console
   const eventType = evt.type;
+  console.log(eventType);
 
   if (eventType === "user.created") {
     const { id, email_addresses, image_url, username, first_name, last_name } =
       evt.data;
-
-    console.log(evt.data);
+    console.log(username);
 
     // create a new user in yout database
     const user = await createUser({
       clerkId: id,
       name: `${first_name}${last_name} ? ${last_name} :""`,
-      username: username!,
+      username: username ?? "",
       email: email_addresses[0].email_address,
       picture: image_url,
     });

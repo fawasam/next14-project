@@ -1,8 +1,13 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+// import { authMiddleware } from "@clerk/nextjs";
+
+// export default authMiddleware({
+//   ignoredRoutes: ["/api/webhooks(.*)"],
+// });
 
 const isProtectedRoute = createRouteMatcher([
   "/forum(.*)",
-  "/api/webhook",
+  // "/api/webhook",
   "/ask-question",
 ]);
 

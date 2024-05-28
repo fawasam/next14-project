@@ -28,3 +28,10 @@ export function formatLargeNumber(num: number): string {
     return num.toString();
   }
 }
+
+export const getJoindeDate = (date: Date): string => {
+  const month = date.toLocaleString("default", { month: "long" });
+  const year = date.getFullYear();
+  const joinedDate = `${month} ${year}`;
+  return joinedDate;
+};

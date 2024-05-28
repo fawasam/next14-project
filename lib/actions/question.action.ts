@@ -5,6 +5,7 @@ import Tag from "@/database/tag.model";
 import Question from "@/database/question.model";
 import {
   CreateQuestionParams,
+  DeleteQuestionParams,
   GetQuestionByIdParams,
   GetQuestionsParams,
   VoteParams,
@@ -12,6 +13,7 @@ import {
 import User from "@/database/user.model";
 import { revalidatePath } from "next/cache";
 import Answer from "@/database/answer.model";
+import Interaction from "@/database/interaction.model";
 
 async function handleVote({
   id,
@@ -151,4 +153,25 @@ export async function upVoteAnswer(params: VoteParams) {
 
 export async function downVoteAnswer(params: VoteParams) {
   return handleVote({ ...params, voteType: "downvote", model: Answer });
+}
+
+export async function deleteQuestion(params: DeleteQuestionParams) {
+  try {
+    connectToDatabase();
+
+    const { questionId, path } = params;
+
+    await Question.deleteOne({ _id: questionId });
+    await Answer.deleteMany({ question: questionId });
+    await Interaction.deleteMany({ question: questionId });
+    await Tag.updateMany(
+      { questions: questionId },
+      { $pull: { questions: questionId } }
+    );
+
+    revalidatePath(path);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 }

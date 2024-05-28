@@ -68,7 +68,7 @@ export async function POST(req: Request) {
     // create a new user in yout database
     const user = await createUser({
       clerkId: id,
-      name: `${first_name}${last_name} ? ${last_name} :""`,
+      name: `{${first_name}${last_name} ? ${last_name} :""}`,
       username: username ?? "",
       email: email_addresses[0].email_address,
       picture: image_url,

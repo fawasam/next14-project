@@ -6,7 +6,7 @@ import React, { useState } from "react";
 const GlobalSearch = () => {
   const [value, setvalue] = useState("");
   return (
-    <div className="max-lg:hidden relative w-full max-w-[600px]">
+    <div className="relative w-full max-w-[600px] max-lg:hidden">
       <div className="background-light800_darkgradient realtive rounded-xl flex min-h-[56px] grow items-center gap-1 px-4">
         <Image
           src={"/assets/icons/search.svg"}

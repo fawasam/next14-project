@@ -16,11 +16,11 @@ interface Props {
 }
 
 const UserCard = async ({ user }: Props) => {
-  const interactedTags = await getTopInteractedTags({ userId: "123" });
+  const interactedTags = await getTopInteractedTags({ userId: user.clerkId });
   return (
     <Link
-      // href={`/profile/${user.clerkId}`}
-      href="/"
+      href={`/profile/${user.clerkId}`}
+      // href="/"
       className=" w-full border border-red-300 max-xs:min-w-full xs:w-[260px]"
     >
       <article>
@@ -29,13 +29,15 @@ const UserCard = async ({ user }: Props) => {
           alt="user profile picture"
           width={100}
           height={100}
-          className="rounded-full"
+          className="rounded-full flex items-center justify-center mx-auto"
         />
         <div className="mt-4 text-center">
           <h3 className="h3-bold text-dark200_light900 line-clamp-1">
-            John Doe
+            {user?.name}
           </h3>
-          <p className="body-regular text-dark500_light500 mt-2">@ johndoe90</p>
+          <p className="body-regular text-dark500_light500 mt-2">
+            @{user?.username}
+          </p>
         </div>
 
         <div className="mt-5">

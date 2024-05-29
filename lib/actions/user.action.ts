@@ -35,6 +35,16 @@ export async function getUserById(params: any) {
 export async function getAllUsers(params: GetAllUsersParams) {
   try {
     connectToDatabase();
+    const { searchQuery } = params as GetAllUsersParams;
+
+    const query: FilterQuery<typeof User> = {};
+
+    if (searchQuery) {
+      query.$or = [
+        { name: { $regex: new RegExp(searchQuery, "i") } },
+        { username: { $regex: new RegExp(searchQuery, "i") } },
+      ];
+    }
     // const {
     //   page = 1,
     //   pageSize = 20,
@@ -42,7 +52,7 @@ export async function getAllUsers(params: GetAllUsersParams) {
     //   searchQuery,
     // } = params as GetAllUsersParams;
 
-    const users = await User.find({}).sort({ createdAt: -1 });
+    const users = await User.find(query).sort({ createdAt: -1 });
 
     return { users };
   } catch (error) {

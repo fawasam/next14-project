@@ -23,9 +23,9 @@ import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "@/context/ThemeProvider";
 
 interface Props {
-  mongoUserId: string;
-  type: string;
-  questionDetails: string;
+  mongoUserId?: string;
+  type?: string;
+  questionDetails?: string;
 }
 const QuestionForm = ({ mongoUserId, type, questionDetails }: Props) => {
   const editorRef = useRef<HTMLInputElement | null | any>(null);

@@ -39,7 +39,7 @@ export const getJoindeDate = (date: Date): string => {
 interface FormUrlQuery {
   params: string;
   key: string;
-  value: string;
+  value: string | null;
 }
 interface RemoveKeysFormQuery {
   params: string;

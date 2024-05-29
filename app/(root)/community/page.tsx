@@ -11,6 +11,7 @@ import React from "react";
 const Community = async ({ searchParams }: SearchParamsProps) => {
   const result = await getAllUsers({
     searchQuery: searchParams.q,
+    filter: searchParams.filter,
   });
   console.log(result.users);
 
@@ -35,7 +36,7 @@ const Community = async ({ searchParams }: SearchParamsProps) => {
         <Filter
           filters={UserFilters}
           otherClasses="min-h-[56px] sm:min-w-[170px]"
-          containerClasses="hidden max-md:flex"
+          containerClasses=" max-md:flex"
         />
       </div>
 

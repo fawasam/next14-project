@@ -16,7 +16,10 @@ type Props = {
   params: {
     id: string;
   };
-  searchParams: string;
+  searchParams: {
+    page: string;
+    filter: string;
+  };
 };
 const page = async ({ params, searchParams }: Props) => {
   const result = await getQuestionById({ questionId: params.id });
@@ -103,6 +106,8 @@ const page = async ({ params, searchParams }: Props) => {
       <AllAnswers
         questionId={result._id}
         userId={user._id}
+        page={searchParams.page}
+        filter={searchParams.filter}
         totalAnswers={result.answers.length}
       />
       <Answer

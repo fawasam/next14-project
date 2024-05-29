@@ -23,7 +23,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "@/context/ThemeProvider";
 
 interface Props {
-  mongoUserId?: string;
+  mongoUserId?: string | any;
   type?: string;
   questionDetails?: string;
 }

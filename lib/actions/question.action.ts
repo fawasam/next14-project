@@ -131,7 +131,11 @@ export async function getQuestionById(params?: GetQuestionByIdParams) {
         model: Tag,
         select: "_id name",
       })
-      .populate({ path: "author", model: User, select: "_id clerkId name" });
+      .populate({
+        path: "author",
+        model: User,
+        select: "_id clerkId name picture",
+      });
 
     return questions;
   } catch (error) {

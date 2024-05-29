@@ -34,14 +34,15 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
               {userInfo.user.name}
             </h2>
             <h2 className="paragraph-regular text-dark200_light800">
-              {userInfo.user.username}
+              @{userInfo.user.username}
             </h2>
 
             <div className="mt-5 flex flex-wrap items-center justify-start gap-5">
-              {userInfo.user.portfolioWebsite && (
+              {userInfo.user.portfoliowebsite && (
                 <ProfileLink
+                  href={userInfo.user.portfoliowebsite}
                   imgUrl="/assets/icons/link.svg"
-                  title={userInfo.user.portfolioWebsite}
+                  title="Porfolio"
                 />
               )}
               {userInfo.user.location && (
@@ -57,7 +58,7 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
             </div>
 
             {userInfo.user.bio && (
-              <p className="paragraph-regular text-dark400_light800">
+              <p className="paragraph-regular text-dark400_light800 mt-4">
                 {userInfo.user.bio}
               </p>
             )}

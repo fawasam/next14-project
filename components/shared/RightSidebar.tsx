@@ -2,58 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import RenderTag from "./RenderTag";
+import { getHotQuestions } from "@/lib/actions/question.action";
+import { getPopularTags } from "@/lib/actions/tag.action";
 
-const RightSidebar = () => {
-  const hotQuestions = [
-    {
-      _id: 1,
-      title: "How do I user express as a custom server in NEXTJS?",
-    },
-    {
-      _id: 2,
-      title: "How do I user express as a custom server in NEXTJS?",
-    },
-    {
-      _id: 3,
-      title: "How do I user express as a custom server in NEXTJS?",
-    },
-    {
-      _id: 4,
-      title: "How do I user express as a custom server in NEXTJS?",
-    },
-    {
-      _id: 5,
-      title: "How do I user express as a custom server in NEXTJS?",
-    },
-  ];
+const RightSidebar = async () => {
+  const hotQuestions = await getHotQuestions();
+  const populatTag = await getPopularTags();
 
-  const populatTag = [
-    {
-      _id: "1",
-      name: "Javascript",
-      totalQuestions: 5,
-    },
-    {
-      _id: "2",
-      name: "React",
-      totalQuestions: 2,
-    },
-    {
-      _id: "3",
-      name: "Typescript",
-      totalQuestions: 1,
-    },
-    {
-      _id: "4",
-      name: "Javascript",
-      totalQuestions: 5,
-    },
-    {
-      _id: "5",
-      name: "Javascript",
-      totalQuestions: 5,
-    },
-  ];
   return (
     <section className="background-light900_dark200 light-border custom-scrollbar dark:shadow-none sticky right-0 top-0 flex h-screen w-[350px] flex-col  overflow-y-auto border-l p-6 pt-36  max-xl:hidden ">
       <div>
@@ -61,7 +16,7 @@ const RightSidebar = () => {
         <div className="mt-7 flex w-full flex-col gap-[30px]">
           {hotQuestions.map((questions) => (
             <Link
-              href={`/questions/${questions._id}`}
+              href={`/question/${questions._id}`}
               key={questions._id}
               className="flex cursor-pointer items-center justify-between gap-7"
             >

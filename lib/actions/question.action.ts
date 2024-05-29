@@ -198,3 +198,18 @@ export async function EditQuestion(params: EditQuestionParams) {
     throw error;
   }
 }
+
+export async function getHotQuestions() {
+  try {
+    connectToDatabase();
+
+    const hotQuestions = await Question.find({})
+      .sort({ upvotes: -1, views: -1 })
+      .limit(5);
+
+    return hotQuestions;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}

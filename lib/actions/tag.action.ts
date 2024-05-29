@@ -90,3 +90,20 @@ export async function getQuestionByTagId(params: GetQuestionsByTagIdParams) {
     throw error;
   }
 }
+
+export async function getPopularTags() {
+  try {
+    connectToDatabase();
+
+    const popularTag = await Tag.aggregate([
+      { $project: { name: 1, totalQuestions: { $size: "$questions" } } },
+      { $sort: { totalQuestions: -1 } },
+      { $limit: 5 },
+    ]);
+
+    return popularTag;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}

@@ -54,10 +54,10 @@ const page = async ({ params, searchParams }: Props) => {
               itemId={JSON.stringify(result._id)}
               userId={JSON.stringify(user?._id)}
               upvotes={result.upvotes.length}
-              hasupvoted={result.upvotes.includes(user._id)}
+              hasupvoted={result.upvotes.includes(user?._id)}
               downvotes={result.downvotes.length}
-              hasdownvoted={result.downvotes.includes(user._id)}
-              hasSaved={user.saved.includes(result._id)}
+              hasdownvoted={result.downvotes.includes(user?._id)}
+              hasSaved={user?.saved.includes(result._id)}
             />
           </div>
         </div>
@@ -105,7 +105,7 @@ const page = async ({ params, searchParams }: Props) => {
       </div>
       <AllAnswers
         questionId={result._id}
-        userId={user._id}
+        userId={user?._id}
         page={searchParams.page}
         filter={searchParams.filter}
         totalAnswers={result.answers.length}
@@ -113,7 +113,7 @@ const page = async ({ params, searchParams }: Props) => {
       <Answer
         question={result.content}
         questionId={JSON.stringify(result._id)}
-        authorId={JSON.stringify(user._id)}
+        authorId={JSON.stringify(user?._id)}
       />
     </>
   );

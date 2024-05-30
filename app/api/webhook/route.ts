@@ -68,8 +68,10 @@ export async function POST(req: Request) {
     // create a new user in yout database
     const user = await createUser({
       clerkId: id,
-      name: `{${first_name}${last_name} ? ${last_name} :""}`,
-      username: username ?? "",
+      name: `${first_name} ${last_name || ""}`,
+      username: username
+        ? `${username}_${Math.floor(Math.random() * 9000) + 1000}`
+        : `${first_name}_${Math.floor(Math.random() * 9000) + 1000}`,
       email: email_addresses[0].email_address,
       picture: image_url,
     });

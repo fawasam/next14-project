@@ -9,6 +9,7 @@ import {
 import Answer from "@/database/answer.model";
 import Interaction from "@/database/interaction.model";
 import Question from "@/database/question.model";
+import User from "@/database/user.model";
 import { revalidatePath } from "next/cache";
 
 export async function CreateAnswer(params: CreateAnswerParams) {
@@ -19,9 +20,20 @@ export async function CreateAnswer(params: CreateAnswerParams) {
     const newAnswer = new Answer({ content, author, question });
     newAnswer.save();
     // add the answer to the question's answers array
-    await Question.findByIdAndUpdate(question, {
+    const questionObj = await Question.findByIdAndUpdate(question, {
       $push: { answers: newAnswer._id },
     });
+
+    await Interaction.create({
+      user: author,
+      action: "answer",
+      question,
+      answer: newAnswer._id,
+      tags: questionObj.tags,
+    });
+
+    await User.findByIdAndUpdate(author, { $inc: { reputation: 10 } });
+
     revalidatePath(path);
   } catch (error) {
     console.log(error);
@@ -93,3 +105,13 @@ export async function deleteAnswer(params: DeleteAnswerParams) {
     throw error;
   }
 }
+
+// must refactor
+
+// export async function upVoteAnswer(params: VoteParams) {
+//   return handleVote({ ...params, voteType: "upvote", model: Answer });
+// }
+
+// export async function downVoteAnswer(params: VoteParams) {
+//   return handleVote({ ...params, voteType: "downvote", model: Answer });
+// }

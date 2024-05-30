@@ -7,6 +7,7 @@ export interface VoteParams {
   hasdownVoted: boolean;
   hasupVoted: boolean;
   path: string;
+  modelName?: string;
 }
 export interface CreateAnswerParams {
   content: string;

@@ -25,6 +25,7 @@ async function handleVote({
   path,
   voteType,
   model,
+  modelName,
 }: VoteParams & { voteType: "upvote" | "downvote"; model: any }) {
   try {
     connectToDatabase();
@@ -54,7 +55,27 @@ async function handleVote({
       }
     }
 
-    const item = await model.findByIdAndUpdate(id, updateQuery, { new: true });
+    const item = await model.findByIdAndUpdate(id, updateQuery, {
+      new: true,
+    });
+
+    const reputationChange =
+      modelName === "Answer"
+        ? hasupVoted || hasdownVoted
+          ? -2
+          : 2
+        : hasupVoted || hasdownVoted
+        ? -1
+        : 1;
+    const answerReputationChange = hasupVoted || hasdownVoted ? -10 : 10;
+
+    await User.findByIdAndUpdate(userId, {
+      $inc: { reputation: reputationChange },
+    });
+
+    await User.findByIdAndUpdate(item.author, {
+      $inc: { reputation: answerReputationChange },
+    });
 
     if (!item) throw new Error(`${model.modelName} not found`);
 
@@ -154,10 +175,19 @@ export async function createQuestion(params?: CreateQuestionParams) {
     });
 
     // create an interaction record for the user's ask_questions action
+    await Interaction.create({
+      user: author,
+      question: question._id,
+      action: "ask_question",
+      tags: tagDocuments,
+    });
     //  increment author's reputation by 5 for creating a question
+    await User.findByIdAndUpdate(author, { $inc: { reputation: 5 } });
 
     revalidatePath(path);
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export async function getQuestionById(params?: GetQuestionByIdParams) {
@@ -186,19 +216,39 @@ export async function getQuestionById(params?: GetQuestionByIdParams) {
 }
 
 export async function upVoteQuestion(params: VoteParams) {
-  return handleVote({ ...params, voteType: "upvote", model: Question });
+  return handleVote({
+    ...params,
+    voteType: "upvote",
+    model: Question,
+    modelName: "question",
+  });
 }
 
 export async function downVoteQuestion(params: VoteParams) {
-  return handleVote({ ...params, voteType: "downvote", model: Question });
+  return handleVote({
+    ...params,
+    voteType: "downvote",
+    model: Question,
+    modelName: "question",
+  });
 }
 
 export async function upVoteAnswer(params: VoteParams) {
-  return handleVote({ ...params, voteType: "upvote", model: Answer });
+  return handleVote({
+    ...params,
+    voteType: "upvote",
+    model: Answer,
+    modelName: "answer",
+  });
 }
 
 export async function downVoteAnswer(params: VoteParams) {
-  return handleVote({ ...params, voteType: "downvote", model: Answer });
+  return handleVote({
+    ...params,
+    voteType: "downvote",
+    model: Answer,
+    modelName: "answer",
+  });
 }
 
 export async function deleteQuestion(params: DeleteQuestionParams) {

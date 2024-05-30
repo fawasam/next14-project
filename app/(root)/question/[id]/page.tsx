@@ -52,7 +52,7 @@ const page = async ({ params, searchParams }: Props) => {
             <Votes
               type="question"
               itemId={JSON.stringify(result._id)}
-              userId={JSON.stringify(user._id)}
+              userId={JSON.stringify(user?._id)}
               upvotes={result.upvotes.length}
               hasupvoted={result.upvotes.includes(user._id)}
               downvotes={result.downvotes.length}

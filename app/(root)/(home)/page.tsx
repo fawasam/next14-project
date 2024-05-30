@@ -9,6 +9,13 @@ import { HomePageFilters } from "@/constants/filters";
 import { getQuestions } from "@/lib/actions/question.action";
 import { SearchParamsProps } from "@/types";
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Home | StudentFlow",
+  description:
+    "StudentFlow is a community-driven platform for students to ask questions and share knowledge. Get help with your homework, assignments, and projects. Explore questions and answers from students around the world.",
+};
 
 export default async function Home({ searchParams }: SearchParamsProps) {
   const result = await getQuestions({

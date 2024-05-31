@@ -8,12 +8,13 @@ import {
 } from "@/components/ui/sheet";
 import Image from "next/image";
 import Link from "next/link";
-import { SignedOut } from "@clerk/nextjs";
+import { SignedOut, useAuth } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { sidebarLinks } from "@/constants";
 import { usePathname } from "next/navigation";
 
 const NavContent = () => {
+  const { userId } = useAuth();
   const pathname = usePathname();
   return (
     <section className="flex h-full flex-col gap-6 pt-8">
@@ -21,6 +22,14 @@ const NavContent = () => {
         const isActive =
           (pathname.includes(item.route) && item.route.length > 1) ||
           pathname === item.route;
+
+        if (item.route === "/profile") {
+          if (userId) {
+            item.route = `${item.route}/${userId}`;
+          } else {
+            return null;
+          }
+        }
         return (
           <SheetClose asChild key={i}>
             <Link
@@ -77,8 +86,8 @@ const MobileNav = () => {
      
         "
           >
-            Dev
-            <span className="text-primary-500"> Overflow</span>
+            Student
+            <span className="text-primary-500"> Flow</span>
           </p>
         </Link>
         <div>

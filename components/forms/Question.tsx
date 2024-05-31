@@ -21,6 +21,7 @@ import Image from "next/image";
 import { createQuestion, EditQuestion } from "@/lib/actions/question.action";
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "@/context/ThemeProvider";
+import { toast } from "../ui/use-toast";
 
 interface Props {
   mongoUserId?: string | any;
@@ -92,6 +93,9 @@ const QuestionForm = ({ mongoUserId, type, questionDetails }: Props) => {
           content: values.explanation,
           path: pathname,
         });
+        toast({
+          title: "Question Updated Successfully",
+        });
         router.push(`/question/${parsedQuestionDetails?._id}`);
       } else {
         await createQuestion({
@@ -101,12 +105,19 @@ const QuestionForm = ({ mongoUserId, type, questionDetails }: Props) => {
           author: JSON.parse(mongoUserId),
           path: pathname,
         });
+        toast({
+          title: "Question Created Successfully",
+        });
         router.push("/");
       }
 
       router.push("/");
     } catch (error) {
       console.log(error);
+      return toast({
+        title: `something went wrong please try again`,
+        variant: "destructive",
+      });
     } finally {
       setIsSubmitting(false);
     }

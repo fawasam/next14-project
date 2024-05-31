@@ -18,6 +18,7 @@ import { Button } from "../ui/button";
 import Image from "next/image";
 import { CreateAnswer } from "@/lib/actions/answer.action";
 import { usePathname } from "next/navigation";
+import { toast } from "../ui/use-toast";
 
 interface Props {
   question: string;
@@ -57,6 +58,10 @@ const Answer = ({ question, questionId, authorId }: Props) => {
       }
     } catch (error) {
       console.log(error);
+      toast({
+        title: `something went wrong please try again`,
+        variant: "destructive",
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -79,6 +84,10 @@ const Answer = ({ question, questionId, authorId }: Props) => {
       alert(aiAnswer.reply);
     } catch (error) {
       console.log(error);
+      return toast({
+        title: `something went wrong please try again`,
+        variant: "destructive",
+      });
     } finally {
       setIsSubmittingAI(false);
     }

@@ -17,6 +17,7 @@ import { Textarea } from "../ui/textarea";
 import { ProfileSchema } from "@/lib/Validations";
 import { usePathname, useRouter } from "next/navigation";
 import { updateUser } from "@/lib/actions/user.action";
+import { toast } from "../ui/use-toast";
 
 interface ProfileFormProps {
   clerkId: string;
@@ -59,6 +60,10 @@ const ProfileForm = ({ clerkId, user }: ProfileFormProps) => {
       router.back();
     } catch (error) {
       console.log(error);
+      return toast({
+        title: `something went wrong please try again`,
+        variant: "destructive",
+      });
     } finally {
       setIsSubmitting(false);
     }

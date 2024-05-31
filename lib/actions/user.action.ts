@@ -256,7 +256,15 @@ export async function getUserInfo(params: GetUserByIdParams) {
       { $group: { _id: null, totalViews: { $sum: "$views" } } },
     ]);
 
-    const criteria = [
+    const criteria: {
+      type:
+        | "QUESTION_COUNT"
+        | "ANSWER_COUNT"
+        | "QUESTION_UPVOTES"
+        | "ANSWER_UPVOTES"
+        | "TOTAL_VIEWS";
+      count: number;
+    }[] = [
       { type: "QUESTION_COUNT" as BadgeCriteriaType, count: totalQuestions },
       { type: "ANSWER_COUNT", count: totalAnswers },
       {

@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import GlobalFilters from "./GlobalFilters";
 import { globalSearch } from "@/lib/actions/general.action";
+import { toast } from "@/components/ui/use-toast";
 const GlobalResult = () => {
   const searchParams = useSearchParams();
 
@@ -25,7 +26,10 @@ const GlobalResult = () => {
         setResult(JSON.parse(res));
       } catch (error) {
         console.log(error);
-        throw error;
+        toast({
+          title: `something went wrong please try again`,
+          variant: "destructive",
+        });
       } finally {
         setIsLoading(false);
       }

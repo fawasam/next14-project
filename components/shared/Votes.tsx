@@ -11,6 +11,7 @@ import { formatLargeNumber } from "@/lib/utils";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import React, { useEffect } from "react";
+import { toast } from "../ui/use-toast";
 
 interface Props {
   type: string;
@@ -40,11 +41,20 @@ const Votes = ({
       questionId: JSON.parse(itemId),
       path: pathname,
     });
+    return toast({
+      title: `Question ${
+        !hasSaved ? "Saved In" : "Removed from  your collection"
+      }`,
+      variant: !hasSaved ? "default" : "destructive",
+    });
   };
 
   const handleVote = async (action: string) => {
     if (!userId) {
-      return;
+      return toast({
+        title: "Please log in",
+        description: "You need to log in to perform this action",
+      });
     }
     if (action === "upvote") {
       if (type === "question") {
@@ -64,7 +74,10 @@ const Votes = ({
           path: pathname,
         });
       }
-      console.log("upvoted");
+      toast({
+        title: `Upvote ${!hasupvoted ? "added" : "removed"}`,
+        variant: !hasupvoted ? "default" : "destructive",
+      });
     }
     if (action === "downvote") {
       if (type === "question") {
@@ -84,7 +97,10 @@ const Votes = ({
           path: pathname,
         });
       }
-      console.log("downvoted");
+      toast({
+        title: `DownVote ${!hasdownvoted ? "added" : "removed"}`,
+        variant: !hasdownvoted ? "default" : "destructive",
+      });
     }
   };
 

@@ -26,7 +26,7 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
             alt={userInfo?.user.name}
             width={140}
             height={140}
-            className="rounded-full object-cover rounded-lg"
+            className="rounded-full rounded-lg object-cover"
           />
 
           <div className="mt-3 ">

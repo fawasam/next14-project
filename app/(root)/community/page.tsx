@@ -9,12 +9,16 @@ import { SearchParamsProps } from "@/types";
 import Link from "next/link";
 import React from "react";
 
+
 const Community = async ({ searchParams }: SearchParamsProps) => {
   const result = await getAllUsers({
     searchQuery: searchParams.q,
     filter: searchParams.filter,
     page: searchParams.page ? +searchParams.page : 1,
   });
+
+  // const isLoading = true;
+  // if (isLoading) return <Loading />;
 
   return (
     <>

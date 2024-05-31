@@ -8,7 +8,7 @@ import { getSavedQuestions } from "@/lib/actions/user.action";
 import { SearchParamsProps } from "@/types";
 import { auth } from "@clerk/nextjs/server";
 
-export default async function Collection({ searchParams }: SearchParamsProps) {
+const Collection = async ({ searchParams }: SearchParamsProps) => {
   const { userId } = auth();
   if (!userId) return null;
   const result = await getSavedQuestions({
@@ -19,7 +19,7 @@ export default async function Collection({ searchParams }: SearchParamsProps) {
   });
 
   return (
-    <>
+    <div>
       <h1 className="h1-bold text-dark100_light900">Saved Questions</h1>
 
       <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
@@ -68,6 +68,7 @@ export default async function Collection({ searchParams }: SearchParamsProps) {
           isNext={result.isNext}
         />
       </div>
-    </>
+    </div>
   );
-}
+};
+export default Collection;

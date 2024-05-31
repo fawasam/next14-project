@@ -328,9 +328,10 @@ export async function getRecommendedQuestions(params: RecommendedParams) {
       return tags;
     }, []);
 
-    const distinctUserTags: Set<any> = new Set(
-      userTags.map((tag: any) => tag._id)
-    );
+    const distinctUserTags = [
+      // @ts-ignore
+      ...new Set<string>(userTags.map((tag: any) => tag._id)),
+    ];
 
     const query: FilterQuery<typeof Question> = {
       $and: [
@@ -361,7 +362,7 @@ export async function getRecommendedQuestions(params: RecommendedParams) {
 
     const isNext = totalQuestions > skipAmount + recommendedQuestions.length;
 
-    return { quetions: recommendedQuestions, isNext };
+    return { questions: recommendedQuestions, isNext };
   } catch (error) {
     console.log(error);
     throw error;

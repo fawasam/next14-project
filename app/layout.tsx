@@ -35,6 +35,18 @@ export const metadata: Metadata = {
       },
     ],
   },
+  twitter: {
+    site: "@studentsflow",
+    card: "summary_large_image",
+    title: "StudentFlow",
+    description:
+      "A community-driven platform for students to ask questions and share knowledge. Get help with your homework, assignments, and projects. Explore questions and answers from students around the world.",
+    creator: "@fawasam",
+    images: {
+      url: `/assets/images/social-logo.png`,
+      alt: "Preview image for fawasam",
+    },
+  },
 };
 
 export default function RootLayout({

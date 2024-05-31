@@ -20,7 +20,7 @@ export const themes = [
 export const sidebarLinks: SidebarLink[] = [
   {
     imgURL: "/assets/icons/home.svg",
-    route: "/",
+    route: "/question",
     label: "Home",
   },
   {

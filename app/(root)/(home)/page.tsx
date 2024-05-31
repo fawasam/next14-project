@@ -73,17 +73,17 @@ export default async function Home({ searchParams }: SearchParamsProps) {
       <HomeFilters />
       <div className="mt-10 flex w-full flex-col gap-6">
         {result?.questions?.length > 0 ? (
-          result?.questions?.map((questions) => (
+          result?.questions?.map((question: any) => (
             <QuestionsCard
-              key={questions._id}
-              _id={questions._id}
-              title={questions.title}
-              tags={questions.tags}
-              author={questions.author}
-              upvotes={questions.upvotes.length}
-              views={questions.views}
-              answers={questions?.answer?.length ? questions.answer.length : 0}
-              createdAt={questions.createdAt}
+              key={question._id}
+              _id={question._id}
+              title={question.title}
+              tags={question.tags}
+              author={question.author}
+              upvotes={question.upvotes.length}
+              views={question.views}
+              answers={question?.answer?.length ? question.answer.length : 0}
+              createdAt={question.createdAt}
             />
           ))
         ) : (

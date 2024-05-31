@@ -19,7 +19,7 @@ const Collection = async ({ searchParams }: SearchParamsProps) => {
   if (!userId)
     return (
       <NoResult
-        title={"Thers's no saved questions to show"}
+        title={"Please login to save questions"}
         description={
           "Be the first to break the silence!🚀 Ask a Question and kiskstart the discussion, our query could be the next big thing others learn from, GetInvolved!💡"
         }

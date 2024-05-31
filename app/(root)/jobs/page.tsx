@@ -3,12 +3,14 @@ import React from "react";
 
 const Job = () => {
   return (
-    <NoResult
-      title={"Jobs Page Under Construction!🚧"}
-      description={"We are working on this page. Please check back later."}
-      link="/"
-      linkTitle="Home Page"
-    />
+    <div className="flex items-center">
+      <NoResult
+        title={"Jobs Page Under Construction!🚧"}
+        description={"We are working on this page. Please check back later."}
+        link="/"
+        linkTitle="Home Page"
+      />
+    </div>
   );
 };
 

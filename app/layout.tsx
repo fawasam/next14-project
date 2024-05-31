@@ -16,8 +16,24 @@ export const metadata: Metadata = {
   title: "StudentFlow",
   description:
     "A community-driven platform for students to ask questions and share knowledge. Get help with your homework, assignments, and projects. Explore questions and answers from students around the world.",
+
   icons: {
     icon: `/assets/images/site-logo.svg`,
+  },
+  openGraph: {
+    type: "website",
+    url: "https://studentsflow.vercel.app/",
+    title: "StudentFlow",
+    description:
+      "A community-driven platform for students to ask questions and share knowledge. Get help with your homework, assignments, and projects. Explore questions and answers from students around the world.",
+    images: [
+      {
+        url: `/assets/images/social-logo.png`,
+        width: 900,
+        height: 800,
+        alt: "Og Image Alt",
+      },
+    ],
   },
 };
 

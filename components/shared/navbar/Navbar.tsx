@@ -21,8 +21,8 @@ const Navbar = () => {
         dark:text-light-900 max-sm:hidden
         "
         >
-          Dev
-          <span className="text-primary-500"> Overflow</span>
+          Student
+          <span className="text-primary-500"> Flow</span>
         </p>
       </Link>
       <GlobalSearch />

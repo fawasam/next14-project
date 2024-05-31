@@ -21,15 +21,15 @@ const UserCard = async ({ user }: Props) => {
     <Link
       href={`/profile/${user.clerkId}`}
       // href="/"
-      className=" w-full border border-red-300 max-xs:min-w-full xs:w-[260px]"
+      className=" w-full rounded-lg border max-xs:min-w-full xs:w-[260px]"
     >
-      <article>
+      <article className="p-4">
         <Image
           src={user?.picture}
           alt="user profile picture"
           width={100}
           height={100}
-          className="rounded-full flex items-center justify-center mx-auto"
+          className="mx-auto flex items-center justify-center rounded-full"
         />
         <div className="mt-4 text-center">
           <h3 className="h3-bold text-dark200_light900 line-clamp-1">
@@ -42,7 +42,7 @@ const UserCard = async ({ user }: Props) => {
 
         <div className="mt-5">
           {interactedTags.length > 0 ? (
-            <div className="flex items-center gap-2 justify-center">
+            <div className="flex items-center justify-center gap-2">
               {interactedTags.map((tag, i) => (
                 <RenderTag key={i} _id={tag._id} name={tag.name} />
               ))}

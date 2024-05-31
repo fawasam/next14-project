@@ -66,7 +66,7 @@ const LocalSearchbar = ({
       <Input
         type="text"
         placeholder={placeholder}
-        className="no-focus background-light800_darkgradient placeholder paragraph-regular border-none  outline-none"
+        className="no-focus   text-dark400_light700 placeholder paragraph-regular border-none bg-transparent  shadow-none outline-none"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />

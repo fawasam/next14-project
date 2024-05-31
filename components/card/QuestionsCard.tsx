@@ -36,7 +36,7 @@ const QuestionsCard = ({
   const showActionButton = clerkId && clerkId === author.clerkId;
 
   return (
-    <div className="card-wrapper rounded-[10px] border border-y-pink-200 p-9 sm:px-11">
+    <div className="card-wrapper rounded-[10px] border  p-9 sm:px-11">
       <div className="flex flex-col-reverse items-start justify-between gap-5 sm:flex-row">
         <div>
           <span className="subtle-regular text-dark400_light700 line-clamp-1 flex sm:hidden">
@@ -74,27 +74,29 @@ const QuestionsCard = ({
           textStyle="body-medium text-dark400_light700"
         />
 
-        <Metric
-          imgUrl="/assets/icons/like.svg"
-          alt="Upvotes"
-          value={formatLargeNumber(upvotes)}
-          title="Votes"
-          textStyle="small-medium text-dark400_light800"
-        />
-        <Metric
-          imgUrl="/assets/icons/message.svg"
-          alt="message"
-          value={formatLargeNumber(answers)}
-          title="Answers"
-          textStyle="small-medium text-dark400_light800"
-        />
-        <Metric
-          imgUrl="/assets/icons/eye.svg"
-          alt="eye"
-          value={formatLargeNumber(views)}
-          title="Views"
-          textStyle="small-medium text-dark400_light800"
-        />
+        <div className="flex  items-center gap-3 max-sm:flex-wrap max-sm:justify-start">
+          <Metric
+            imgUrl="/assets/icons/like.svg"
+            alt="Upvotes"
+            value={formatLargeNumber(upvotes)}
+            title="Votes"
+            textStyle="small-medium text-dark400_light800"
+          />
+          <Metric
+            imgUrl="/assets/icons/message.svg"
+            alt="message"
+            value={formatLargeNumber(answers)}
+            title="Answers"
+            textStyle="small-medium text-dark400_light800"
+          />
+          <Metric
+            imgUrl="/assets/icons/eye.svg"
+            alt="eye"
+            value={formatLargeNumber(views)}
+            title="Views"
+            textStyle="small-medium text-dark400_light800"
+          />
+        </div>
       </div>
     </div>
   );

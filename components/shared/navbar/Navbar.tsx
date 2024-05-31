@@ -8,7 +8,7 @@ import GlobalSearch from "../search/GlobalSearch";
 
 const Navbar = () => {
   return (
-    <nav className="flex-between background-light900_dark200 dark:shadow-none  fixed z-50 w-full  gap-5 p-6">
+    <nav className="flex-between background-light900_dark200 light-border fixed z-50  w-full gap-5 border-b  p-6 dark:shadow-none">
       <Link href="/" className="flex items-center gap-1">
         <Image
           src="/assets/images/site-logo.svg"
@@ -17,8 +17,8 @@ const Navbar = () => {
           alt="DevFlow"
         />
         <p
-          className="h2-bold max-sm:hidden font-spaceGrotesk
-        text-dark-100 dark:text-light-900
+          className="h2-bold font-spaceGrotesk text-dark-100
+        dark:text-light-900 max-sm:hidden
         "
         >
           Dev

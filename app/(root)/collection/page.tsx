@@ -10,18 +10,27 @@ import { auth } from "@clerk/nextjs/server";
 
 const Collection = async ({ searchParams }: SearchParamsProps) => {
   const { userId } = auth();
-  if (!userId) return null;
   const result = await getSavedQuestions({
     clerkId: userId,
     searchQuery: searchParams.q,
     filter: searchParams.filter,
     page: searchParams.page ? +searchParams.page : 1,
   });
+  if (!userId)
+    return (
+      <NoResult
+        title={"Thers's no saved questions to show"}
+        description={
+          "Be the first to break the silence!🚀 Ask a Question and kiskstart the discussion, our query could be the next big thing others learn from, GetInvolved!💡"
+        }
+        link="/"
+        linkTitle="All Questions"
+      />
+    );
 
   return (
     <div>
       <h1 className="h1-bold text-dark100_light900">Saved Questions</h1>
-
       <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
         <LocalSearchbar
           route="/"
